@@ -26,3 +26,4 @@ export class IncomeComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 }
+ 
