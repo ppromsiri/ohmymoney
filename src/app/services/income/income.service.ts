@@ -11,7 +11,7 @@ export class IncomeService {
 
   constructor(private http: HttpClient) { }
 
-  getincomeByUserId(): Observable<Income[]> {
+  getIncomeByUserId(): Observable<Income[]> {
       return this.http.get<Income[]>('http://103.74.254.157:9003/income/id/1')
   }
 

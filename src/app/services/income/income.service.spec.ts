@@ -21,7 +21,7 @@ describe('IncomeService', () => {
   });
   it('should call method get with url of get income api', () => {
 
-    service.getincomeByUserId().subscribe();
+    service.getIncomeByUserId().subscribe();
 
     const req = httpTestingController.expectOne(
       'http://103.74.254.157:9003/income/id/1'
