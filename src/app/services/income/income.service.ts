@@ -1,9 +1,20 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Income } from 'src/app/models/income';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncomeService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  getincomeByUserId(): Observable<Income[]> {
+      return this.http.get<Income[]>('http://103.74.254.157:9003/income/id/1')
+  }
+
+  
 }
+
