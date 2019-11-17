@@ -40,7 +40,7 @@ describe('IncomeComponent', () => {
       expected = [{
         id: 1,
         incomeGroupId: 1,
-        incomeNameGroupId: 'งานประจำ',
+        incomeGroupName: 'งานประจำ',
         amount: 100000,
         date: '1/31/2019'
       }
