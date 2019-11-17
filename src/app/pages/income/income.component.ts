@@ -62,7 +62,8 @@ export class IncomeComponent implements OnInit {
       incomeGroupId: Number(this.incomeForm.get('incomeGroupId').value)
     } as IncomeRequest;
     this.incomeService.saveIncome(data).subscribe(_=>{
-      console.log('success');
+     // this.modalRef.hide();
+      this.getIncomeByUserId();
     });
   
   }
