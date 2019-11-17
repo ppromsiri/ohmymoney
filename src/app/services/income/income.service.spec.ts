@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { IncomeService } from './income.service';
-import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 
 describe('IncomeService', () => {
@@ -27,4 +27,16 @@ describe('IncomeService', () => {
     );
     expect(req.request.method).toBe('GET');
   });
+  it('should call method GET with url of get income group api', () => {
+
+    service.getIncomeGroup().subscribe(); 
+
+    const req = httpTestingController.expectOne(
+      'https://working-with-angular.herokuapp.com/income/group'
+    );
+    expect(req.request.method).toBe('GET');
+  });
+ 
+
 });
+
