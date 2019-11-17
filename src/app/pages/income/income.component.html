@@ -44,8 +44,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                   <select id="incomeGroupId" formControlName="incomeGroupID" class="from-control">
+                   <select id="incomeGroupId" formControlName="incomeGroupId" class="form-control">
                     <option value="" selected>กรุณาเลือกประเภทเงินเดือน</option>
+                    <option *ngFor="let data of incomeGroup" [value]="data.id">
+                        {{data.name}}
+                    </option>
+
                    </select>
                 </div>
                 <div class="form-group">

@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { IncomeService } from './income.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { IncomeRequest } from 'src/app/models/income-request';
 
 
 describe('IncomeService', () => {
@@ -23,20 +24,54 @@ describe('IncomeService', () => {
     service.getIncomeByUserId().subscribe();
 
     const req = httpTestingController.expectOne(
-      'https://working-with-angular.herokuapp.com/income/id/1'
+      `${service.SERVER_URL}/income/id/1`
     );
     expect(req.request.method).toBe('GET');
   });
   it('should call method GET with url of get income group api', () => {
 
-    service.getIncomeGroup().subscribe(); 
+    service.getIncomeGroup().subscribe();
 
     const req = httpTestingController.expectOne(
-      'https://working-with-angular.herokuapp.com/income/group'
+      `${service.SERVER_URL}/income/group`
     );
     expect(req.request.method).toBe('GET');
   });
- 
+  it('should call method POST with url of add income api', () => {
+    const dataRequest = {
+      amount: 50000,
+      date: "12/31/2019",
+      incomeGroupId: 3
+    } as IncomeRequest;
+    service.saveIncome(dataRequest).subscribe();
+    const req = httpTestingController.expectOne(
+      `${service.SERVER_URL}/income`
+    );
+    expect(req.request.method).toBe('POST');
+  });
+
+  it('should set income request body with user id when call method save income', () => {
+    const dataRequest = {
+      amount: 50000,
+      date: "12/31/2019",
+      incomeGroupId: 3
+    } as IncomeRequest;
+    const expected = {
+      userId: 16,
+      amount: 50000,
+      date: "12/31/2019",
+      incomeGroupId: 3
+    } as IncomeRequest;
+
+    service.saveIncome(dataRequest).subscribe();
+
+    const req = httpTestingController.expectOne(
+      `${service.SERVER_URL}/income`
+    );
+    expect(req.request.body).toEqual(expected);
+
+
+  });
 
 });
 
