@@ -19,6 +19,7 @@ describe('IncomeService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
   it('should call method get with url of get income api', () => {
 
     service.getIncomeByUserId().subscribe();
@@ -28,6 +29,7 @@ describe('IncomeService', () => {
     );
     expect(req.request.method).toBe('GET');
   });
+
   it('should call method GET with url of get income group api', () => {
 
     service.getIncomeGroup().subscribe();
@@ -37,6 +39,7 @@ describe('IncomeService', () => {
     );
     expect(req.request.method).toBe('GET');
   });
+
   it('should call method POST with url of add income api', () => {
     const dataRequest = {
       amount: 50000,
@@ -62,15 +65,11 @@ describe('IncomeService', () => {
       date: "12/31/2019",
       incomeGroupId: 3
     } as IncomeRequest;
-
     service.saveIncome(dataRequest).subscribe();
-
     const req = httpTestingController.expectOne(
       `${service.SERVER_URL}/income`
     );
     expect(req.request.body).toEqual(expected);
-
-
   });
 
 });

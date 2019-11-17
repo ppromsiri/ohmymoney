@@ -1,6 +1,6 @@
 export interface IncomeGroup {
-    
-        "id": number,
-        "name": string
-    
+
+    "id": number,
+    "name": string
+
 }

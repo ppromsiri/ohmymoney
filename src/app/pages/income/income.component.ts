@@ -4,6 +4,7 @@ import { Income } from 'src/app/models/income';
 import { IncomeService } from 'src/app/services/income/income.service';
 import { FormGroup,FormBuilder } from '@angular/forms';
 import { IncomeGroup } from 'src/app/models/income-group';
+import { IncomeRequest } from 'src/app/models/income-request';
 
 @Component({
   selector: 'app-income',
@@ -55,6 +56,18 @@ export class IncomeComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.incomeForm.value);
+    const data ={
+      amount: Number(this.incomeForm.get('amount').value),
+      date: this.getDateISOString(this.incomeForm.get('date').value),
+      incomeGroupId: Number(this.incomeForm.get('incomeGroupId').value)
+    } as IncomeRequest;
+    this.incomeService.saveIncome(data).subscribe(_=>{
+      console.log('success');
+    });
+  
+  }
+
+  getDateISOString(date: string): string {
+    return new Date(date).toISOString();
   }
 }

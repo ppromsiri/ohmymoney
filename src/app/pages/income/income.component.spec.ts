@@ -7,6 +7,7 @@ import { of } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { IncomeGroup } from 'src/app/models/income-group';
+import { IncomeRequest } from 'src/app/models/income-request';
 
 describe('IncomeComponent', () => {
   let component: IncomeComponent;
@@ -94,6 +95,22 @@ describe('IncomeComponent', () => {
       spyOn(incomeService,'getIncomeGroup').and.returnValue(of(expected));
       component.ngOnInit();
       expect(component.incomeGroup).toBe(expected);
+    });
+    it('should call method save income when click submit',()=>{
+      component.incomeForm.get('date').setValue('15/11/2019');
+      component.incomeForm.get('amount').setValue('50000');
+      component.incomeForm.get('incomeGroupId').setValue('3');
+      
+      spyOn(incomeService, 'saveIncome');
+      spyOn(component, 'getDateISOString').and.returnValue('2019-11-15T17:58:17.318Z');
+      const expected ={
+        amount: 50000,
+        date: '2019-11-15T17:58:17.318Z',
+        incomeGroupId: 3
+      } as IncomeRequest;
+      
+      component.onSubmit();
+      expect(incomeService.saveIncome).toHaveBeenCalledWith(expected);
     });
   });
 });

@@ -36,7 +36,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form [formGroup]= "incomeForm">
+            <form [formGroup]="incomeForm">
                 <div class="form-group">
                     <div class="col-xs-12 col-12 col-md-4 form-group row">
                         <input type="text" placeholder="วันที่" class="form-control"
@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <input placeholder="จำนวนเงิน" formControlName="amount" class="form-control">
                 </div>
-                <button>ตกลง</button>
+                <button type="submit" (click)="onSubmit()">ตกลง</button>
             </form>
  
         </div>
