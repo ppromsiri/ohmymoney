@@ -1,8 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal/public_api';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService,BsModalRef } from 'ngx-bootstrap/modal';
 import { Income } from 'src/app/models/income';
 import { IncomeService } from 'src/app/services/income/income.service';
+import { FormGroup,FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-income',
@@ -11,16 +11,35 @@ import { IncomeService } from 'src/app/services/income/income.service';
 })
 export class IncomeComponent implements OnInit {
 
-  constructor(private modalService: BsModalService,private incomeService: IncomeService) { }
+  constructor(
+    private modalService: BsModalService,
+    private incomeService: IncomeService,
+    private fb: FormBuilder) { }
   modalRef: BsModalRef
   incomes: Income[];
+  incomeForm: FormGroup;
 
   ngOnInit() {
-  this.incomeService.getIncomeByUserId();
+    this.getIncomeByUserId(); 
+    this.createForm();
   }
+
+  createForm(){
+    this.incomeForm = this.fb.group({
+      date: '',
+      incomeGroupId: '',
+      amount: ''
+    });
+  }
+
+  getIncomeByUserId() {
+    this.incomeService.getIncomeByUserId().subscribe((incomes: Income[]) => {
+      this.incomes = incomes;
+    });
+  }
+
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
 }
- 
